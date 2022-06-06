@@ -1,21 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import ProductNavigator from "./Navigation/ProductNavigator";
+import * as Font from "expo-font";
+import React, { useState } from "react";
+import AppLoading from "expo-app-loading";
+
+const fetchFonts = () => {
+  return Font.loadAsync({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
+};
 
 export default function App() {
+  const [fontLoad, setFontLoad] = useState(false);
+  if (!fontLoad) {
+    <AppLoading startAsync={fetchFonts} onFinish={() => setFontLoad(true)} />;
+  }
   return (
     <Provider store={store}>
       <ProductNavigator />
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
