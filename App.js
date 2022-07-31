@@ -4,6 +4,7 @@ import ProductNavigator from "./Navigation/ProductNavigator";
 import * as Font from "expo-font";
 import React, { useState } from "react";
 import AppLoading from "expo-app-loading";
+import { StatusBar } from "react-native";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -19,6 +20,7 @@ export default function App() {
   }
   return (
     <Provider store={store}>
+      <StatusBar />
       <ProductNavigator />
     </Provider>
   );

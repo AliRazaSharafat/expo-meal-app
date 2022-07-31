@@ -24,13 +24,15 @@ const CartScreen = () => {
     <View style={styles.screen}>
       <View style={styles.summary}>
         <Text style={styles.summaryText}>
-          Total: $<Text style={styles.amount}>{totalAmount.toFixed(2)}</Text>
+          Total: $ <Text style={styles.amount}>{totalAmount.toFixed(2)}</Text>
         </Text>
         <Button
           title="Order Now"
           disabled={transformedItems.length === 0}
           color={Colors.secondary}
-          onPress={() => {}}
+          onPress={() => {
+            dispatch(Actions.addOrder(transformedItems, totalAmount));
+          }}
         />
       </View>
       <FlatList
@@ -41,6 +43,7 @@ const CartScreen = () => {
             quantity={itemData.item.productQuantity}
             title={itemData.item.productTitle}
             sum={itemData.item.productSum}
+            deletable
             onRemove={() => {
               dispatch(Actions.removeFromCart(itemData.item.productId));
             }}

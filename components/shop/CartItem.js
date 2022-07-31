@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-const CartItem = ({ quantity, title, sum, onRemove }) => {
+const CartItem = ({ quantity, title, sum, onRemove, deletable }) => {
   return (
     <View style={styles.cartItem}>
       <View style={styles.itemData}>
@@ -16,14 +16,16 @@ const CartItem = ({ quantity, title, sum, onRemove }) => {
         <Text style={styles.text}>{title}</Text>
       </View>
       <View style={styles.itemData}>
-        <Text style={styles.text}>${sum}</Text>
-        <TouchableOpacity style={styles.deleteButton} onPress={onRemove}>
-          <Ionicons
-            name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
-            size={23}
-            color="red"
-          />
-        </TouchableOpacity>
+        <Text style={styles.text}>${sum.toFixed(2)}</Text>
+        {deletable && (
+          <TouchableOpacity style={styles.deleteButton} onPress={onRemove}>
+            <Ionicons
+              name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
+              size={23}
+              color="red"
+            />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

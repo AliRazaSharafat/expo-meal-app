@@ -52,6 +52,21 @@ const CartReducer = (state = initialState, action) => {
         items: updatedCartItems,
         totalAmount: state.totalAmount - selectedItem.productPrice,
       };
+    case Actions.ADD_ORDER: {
+      return initialState;
+    }
+    case Actions.DELETE_PRODUCT:
+      if (!state.items[action.pid]) {
+        return state;
+      }
+      const updatedCartItem = { ...state.items };
+      const itemsSum = state.items[action.pid].productSum;
+      delete updatedCartItem[action.pid];
+      return {
+        ...state,
+        items: updatedCartItem,
+        totalAmount: state.totalAmount - itemsSum,
+      };
     default:
       return state;
   }
